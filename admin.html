@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#05070c">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Trang quản trị Aurora Mobile — dashboard thống kê, quản lý sản phẩm và thành viên.">
+  <title>Admin — AURORA MOBILE</title>
+
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('aurora-theme');
+        if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) { }
+    })();
+  </script>
+
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body data-page="admin">
+
+  <!-- ====================================================================
+       1. MÀN HÌNH ĐĂNG NHẬP
+       ==================================================================== -->
+  <div class="admin-login" id="adminLogin">
+    <div class="login-card">
+      <a class="brand" href="index.html" aria-label="Aurora Mobile — Trang chủ">
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span class="brand__name">Aurora</span>
+      </a>
+
+      <span class="eyebrow">Khu vực quản trị</span>
+      <h1>Đăng nhập trang quản trị</h1>
+      <p class="muted">Quản lý sản phẩm, thành viên nhóm và xem đơn hàng / liên hệ đã gửi.</p>
+
+      <form id="loginForm" class="mt-sm" novalidate>
+        <div class="form-grid form-grid--single">
+          <div class="field">
+            <label for="l-user">Tên đăng nhập <span class="req">*</span></label>
+            <input class="input" type="text" id="l-user" name="l-user" placeholder="admin" autocomplete="username">
+            <p class="msg" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="l-pass">Mật khẩu <span class="req">*</span></label>
+            <input class="input" type="password" id="l-pass" name="l-pass" placeholder="••••••••"
+              autocomplete="current-password">
+            <p class="msg" role="alert"></p>
+          </div>
+        </div>
+
+        <button class="btn btn--primary btn--block mt-md" type="submit">Đăng nhập</button>
+      </form>
+
+      <p class="login-hint">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"
+          stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 16v-5M12 8v.01" />
+        </svg>
+        <span>
+          Tài khoản demo: <code>admin</code> / <code>aurora123</code>.
+          Đây là đăng nhập minh hoạ cho bài tập, dữ liệu lưu bằng localStorage — không phải bảo mật thật.
+        </span>
+      </p>
+
+      <div class="mt-sm">
+        <a class="btn btn--ghost btn--block" href="index.html">← Về trang chủ</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       2. ỨNG DỤNG QUẢN TRỊ
+       ==================================================================== -->
+  <div class="admin-shell" id="adminShell" hidden>
+
+    <!-- Sidebar -->
+    <aside class="admin-side">
+      <a class="brand" href="index.html" aria-label="Aurora Mobile">
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span class="brand__name">Aurora</span>
+      </a>
+
+      <div class="admin-side__navwrap">
+        <p class="admin-side__label">Quản lý</p>
+        <nav class="admin-nav" id="adminNav" aria-label="Điều hướng quản trị">
+          <button type="button" data-tab="dashboard" class="is-active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"
+              stroke-linejoin="round">
+              <rect x="3.5" y="3.5" width="7" height="7" rx="2" />
+              <rect x="13.5" y="3.5" width="7" height="7" rx="2" />
+              <rect x="3.5" y="13.5" width="7" height="7" rx="2" />
+              <rect x="13.5" y="13.5" width="7" height="7" rx="2" />
+            </svg>
+            Dashboard
+          </button>
+
+          <button type="button" data-tab="products">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"
+              stroke-linejoin="round">
+              <rect x="6" y="2.5" width="12" height="19" rx="3" />
+              <path d="M11 18.5h2" />
+            </svg>
+            Sản phẩm
+            <span class="admin-nav__count" id="navCountProducts">0</span>
+          </button>
+
+          <button type="button" data-tab="members">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"
+              stroke-linejoin="round">
+              <circle cx="9" cy="8" r="3.4" />
+              <path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" />
+              <path d="M16 5.2a3.4 3.4 0 010 5.6M18 20c0-2.2-.8-4.2-2.2-5.6" />
+            </svg>
+            Thành viên
+            <span class="admin-nav__count" id="navCountMembers">0</span>
+          </button>
+
+          <button type="button" data-tab="inbox">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M3.5 6.5h17v11a2 2 0 01-2 2h-13a2 2 0 01-2-2v-11z" />
+              <path d="M3.5 7.5l8.5 6 8.5-6" />
+            </svg>
+            Đơn hàng &amp; liên hệ
+            <span class="admin-nav__count" id="navCountInbox">0</span>
+          </button>
+        </nav>
+      </div>
+
+      <div class="admin-side__foot">
+        <a class="btn btn--ghost btn--sm" href="index.html" aria-label="Xem website">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M14 4h6v6" />
+            <path d="M20 4l-8.5 8.5" />
+            <path d="M18 14v4a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2h4" />
+          </svg>
+          <span class="btn__label">Xem website</span>
+        </a>
+
+        <button class="btn btn--ghost btn--sm theme-toggle" id="themeToggle" type="button"
+          aria-label="Đổi chế độ sáng tối">
+          <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round">
+            <circle cx="12" cy="12" r="4.2" />
+            <path
+              d="M12 2.6v2.1M12 19.3v2.1M4.7 4.7l1.5 1.5M17.8 17.8l1.5 1.5M2.6 12h2.1M19.3 12h2.1M4.7 19.3l1.5-1.5M17.8 6.2l1.5-1.5" />
+          </svg>
+          <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 14.5A8.5 8.5 0 019.5 4a8.5 8.5 0 1010.5 10.5z" />
+          </svg>
+          <span class="btn__label">Đổi giao diện</span>
+        </button>
+
+        <button class="btn btn--ghost btn--sm" type="button" id="logoutBtn" aria-label="Đăng xuất">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M15 4h3a2 2 0 012 2v12a2 2 0 01-2 2h-3" />
+            <path d="M10 16l-4-4 4-4" />
+            <path d="M6 12h9" />
+          </svg>
+          <span class="btn__label">Đăng xuất</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Nội dung -->
+    <div class="admin-main">
+      <header class="admin-top">
+        <div class="admin-top__title">
+          <span id="adminTitle">Dashboard</span>
+          <span class="admin-top__sub" id="adminSub">Tổng quan hệ thống Aurora Mobile</span>
+        </div>
+        <div class="admin-top__actions" id="adminActions"></div>
+      </header>
+
+      <!-- ---------------------------- DASHBOARD ---------------------------- -->
+      <section class="admin-panel" id="tab-dashboard" data-panel="dashboard">
+        <div class="stat-grid" id="statGrid"></div>
+
+        <div class="admin-grid-2">
+          <div class="chart">
+            <div class="admin-section-title">Sản phẩm theo danh mục</div>
+            <div class="chart__rows" id="chartCategory"></div>
+          </div>
+
+          <div class="chart">
+            <div class="admin-section-title">Giá niêm yết theo sản phẩm <span>(256GB)</span></div>
+            <div class="chart__rows" id="chartPrice"></div>
+          </div>
+        </div>
+
+        <div class="admin-grid-2">
+          <div class="chart">
+            <div class="admin-section-title">Đơn hàng theo sản phẩm</div>
+            <div class="chart__rows" id="chartOrders"></div>
+          </div>
+
+          <div class="chart">
+            <div class="admin-section-title">Liên hệ theo chủ đề</div>
+            <div class="chart__rows" id="chartTopics"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------------------------- SẢN PHẨM ----------------------------- -->
+      <section class="admin-panel" id="tab-products" data-panel="products" hidden>
+        <div class="admin-toolbar">
+          <label class="field-inline">
+            <span class="sr-only">Tìm sản phẩm</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <circle cx="11" cy="11" r="7" />
+              <path d="M20 20l-3.6-3.6" />
+            </svg>
+            <input type="search" id="adminProductSearch" placeholder="Tìm theo tên hoặc danh mục…" autocomplete="off">
+          </label>
+
+          <div class="admin-toolbar__spacer"></div>
+
+          <button class="btn btn--ghost btn--sm" type="button" id="resetProducts">Khôi phục dữ liệu gốc</button>
+          <button class="btn btn--primary btn--sm" type="button" id="addProduct">+ Thêm sản phẩm</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Ảnh</th>
+                <th>Sản phẩm</th>
+                <th>Danh mục</th>
+                <th>Giá (256GB)</th>
+                <th>Nhãn</th>
+                <th class="ta-r">Hành động</th>
+              </tr>
+            </thead>
+            <tbody id="productRows"></tbody>
+          </table>
+        </div>
+
+        <p class="field__hint" id="productCount"></p>
+      </section>
+
+      <!-- --------------------------- THÀNH VIÊN ---------------------------- -->
+      <section class="admin-panel" id="tab-members" data-panel="members" hidden>
+        <div class="admin-toolbar">
+          <div class="admin-section-title">Danh sách thành viên nhóm</div>
+          <div class="admin-toolbar__spacer"></div>
+          <button class="btn btn--ghost btn--sm" type="button" id="resetMembers">Khôi phục dữ liệu gốc</button>
+          <button class="btn btn--primary btn--sm" type="button" id="addMember">+ Thêm thành viên</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Ảnh</th>
+                <th>Mã SV</th>
+                <th>Họ tên</th>
+                <th>Vai trò</th>
+                <th>Sở thích</th>
+                <th class="ta-r">Hành động</th>
+              </tr>
+            </thead>
+            <tbody id="memberRows"></tbody>
+          </table>
+        </div>
+
+        <p class="field__hint">
+          Thay đổi ở đây được lưu vào localStorage và hiển thị ngay trên trang
+          <a href="members.html">Members</a>.
+        </p>
+      </section>
+
+      <!-- ----------------------- ĐƠN HÀNG & LIÊN HỆ ------------------------ -->
+      <section class="admin-panel" id="tab-inbox" data-panel="inbox" hidden>
+        <div class="admin-toolbar">
+          <div class="admin-section-title">Đơn hàng đã nhận <span id="orderCount"></span></div>
+          <div class="admin-toolbar__spacer"></div>
+          <button class="btn btn--ghost btn--sm" type="button" id="clearOrders">Xoá tất cả đơn</button>
+        </div>
+        <div class="inbox-list" id="orderList"></div>
+
+        <div class="admin-toolbar mt-sm">
+          <div class="admin-section-title">Liên hệ đã nhận <span id="contactCount"></span></div>
+          <div class="admin-toolbar__spacer"></div>
+          <button class="btn btn--ghost btn--sm" type="button" id="clearContacts">Xoá tất cả liên hệ</button>
+        </div>
+        <div class="inbox-list" id="contactList"></div>
+
+        <p class="field__hint">
+          Dữ liệu sinh ra khi khách gửi form ở trang <a href="order.html">Order</a> và
+          <a href="contact.html">Contact</a>.
+        </p>
+      </section>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       3. MODAL: THÊM / SỬA SẢN PHẨM
+       ==================================================================== -->
+  <div class="modal" id="productModal" role="dialog" aria-modal="true" aria-labelledby="productModalTitle"
+    aria-hidden="true">
+    <div class="modal__dialog modal__dialog--wide">
+      <button class="modal__close" type="button" data-close-modal aria-label="Đóng">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+
+      <div class="modal__head">
+        <div>
+          <span class="modal__eyebrow">Quản lý sản phẩm</span>
+          <h2 class="modal__title" id="productModalTitle">Thêm sản phẩm</h2>
+        </div>
+      </div>
+
+      <form id="productForm" novalidate>
+        <div class="form-grid">
+          <div class="field">
+            <label for="p-name">Tên sản phẩm <span class="req">*</span></label>
+            <input class="input" type="text" id="p-name" name="p-name" placeholder="Aurora X2">
+            <p class="msg" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="p-tagline">Nhãn danh mục <span class="req">*</span></label>
+            <input class="input" type="text" id="p-tagline" name="p-tagline" placeholder="Flagship Performance">
+            <p class="msg" role="alert"></p>
+          </div>
+
+          <div class="field field--full">
+            <label for="p-desc">Mô tả ngắn <span class="req">*</span></label>
+            <input class="input" type="text" id="p-desc" name="p-desc"
+              placeholder="Hiệu năng đỉnh cao trong thân máy mỏng nhẹ.">
+            <p class="msg" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="p-price">Giá bản 256GB (đ) <span class="req">*</span></label>
+            <input class="input" type="text" id="p-price" name="p-price" inputmode="numeric" placeholder="16990000">
+            <p class="msg" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="p-oldPrice">Giá gạch ngang (đ)</label>
+            <input class="input" type="text" id="p-oldPrice" name="p-oldPrice" inputmode="numeric"
+              placeholder="18990000">
+            <p class="msg" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="p-badge">Nhãn nổi bật</label>
+            <input class="input" type="text" id="p-badge" name="p-badge" placeholder="Mới / Bán chạy / …">
+            <p class="msg" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="p-featured">Điểm ưu tiên (Featured)</label>
+            <input class="input" type="text" id="p-featured" name="p-featured" inputmode="numeric" placeholder="5">
+            <p class="msg" role="alert"></p>
+          </div>
+
+          <div class="field field--full">
+            <label for="p-img">Ảnh sản phẩm <span class="req">*</span></label>
+            <select class="select" id="p-img" name="p-img"></select>
+            <p class="msg" role="alert"></p>
+          </div>
+
+          <div class="field field--full">
+            <label>Danh mục (chọn ít nhất 1) <span class="req">*</span></label>
+            <div class="opt-group" id="p-catGroup">
+              <div class="check-group" id="p-categories"></div>
+              <p class="group-error" role="alert"></p>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="p-display">Thông số màn hình <span class="req">*</span></label>
+            <input class="input" type="text" id="p-display" name="p-display" placeholder='6.8" AMOLED 144Hz'>
+            <p class="msg" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="p-camera">Thông số camera <span class="req">*</span></label>
+            <input class="input" type="text" id="p-camera" name="p-camera" placeholder="200MP + 50MP + 64MP">
+            <p class="msg" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="p-battery">Thông số pin <span class="req">*</span></label>
+            <input class="input" type="text" id="p-battery" name="p-battery" placeholder="5200 mAh · 100W">
+            <p class="msg" role="alert"></p>
+          </div>
+
+          <div class="field field--full">
+            <div class="field__foot">
+              <label for="p-detail">Bảng thông số kỹ thuật</label>
+              <span class="field__hint">Mỗi dòng một thông số, dạng <code>Tên: Giá trị</code></span>
+            </div>
+            <textarea class="textarea" id="p-detail" name="p-detail"
+              placeholder="Màn hình: 6.9 inch AMOLED, 120Hz&#10;Chip xử lý: Snapdragon 8 Elite Gen 5"></textarea>
+          </div>
+        </div>
+
+        <div class="hero__actions mt-md">
+          <button class="btn btn--primary" type="submit" id="productSubmitBtn">Lưu sản phẩm</button>
+          <button class="btn btn--ghost" type="button" data-close-modal>Huỷ</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       4. MODAL: THÊM / SỬA THÀNH VIÊN
+       ==================================================================== -->
+  <div class="modal" id="memberModal" role="dialog" aria-modal="true" aria-labelledby="memberModalTitle"
+    aria-hidden="true">
+    <div class="modal__dialog modal__dialog--wide">
+      <button class="modal__close" type="button" data-close-modal aria-label="Đóng">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+
+      <div class="modal__head">
+        <div>
+          <span class="modal__eyebrow">Quản lý thành viên</span>
+          <h2 class="modal__title" id="memberModalTitle">Thêm thành viên</h2>
+        </div>
+      </div>
+
+      <form id="memberForm" novalidate>
+        <div class="form-grid">
+          <div class="field">
+            <label for="m-code">Mã sinh viên <span class="req">*</span></label>
+            <input class="input" type="text" id="m-code" name="m-code" inputmode="numeric" placeholder="22520005">
+            <p class="msg" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="m-name">Họ và tên <span class="req">*</span></label>
+            <input class="input" type="text" id="m-name" name="m-name" placeholder="Nguyễn Văn A">
+            <p class="msg" role="alert"></p>
+          </div>
+
+          <div class="field field--full">
+            <label for="m-role">Vai trò <span class="req">*</span></label>
+            <input class="input" type="text" id="m-role" name="m-role" placeholder="Thiết kế giao diện">
+            <p class="msg" role="alert"></p>
+          </div>
+
+          <div class="field field--full">
+            <label for="m-hobbies">Sở thích <span class="req">*</span></label>
+            <input class="input" type="text" id="m-hobbies" name="m-hobbies"
+              placeholder="Công nghệ, Nhiếp ảnh, Âm nhạc">
+            <p class="msg" role="alert"></p>
+          </div>
+
+          <div class="field field--full">
+            <label for="m-photo">Ảnh thành viên <span class="req">*</span></label>
+            <select class="select" id="m-photo" name="m-photo"></select>
+            <p class="msg" role="alert"></p>
+          </div>
+
+          <div class="field field--full">
+            <label for="m-bio">Giới thiệu ngắn <span class="req">*</span></label>
+            <textarea class="textarea textarea--sm" id="m-bio" name="m-bio"
+              placeholder="Mô tả ngắn về thành viên (tối thiểu 20 ký tự)…"></textarea>
+            <p class="msg" role="alert"></p>
+          </div>
+        </div>
+
+        <div class="hero__actions mt-md">
+          <button class="btn btn--primary" type="submit" id="memberSubmitBtn">Lưu thành viên</button>
+          <button class="btn btn--ghost" type="button" data-close-modal>Huỷ</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       5. MODAL XÁC NHẬN
+       ==================================================================== -->
+  <div class="modal" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle"
+    aria-hidden="true">
+    <div class="modal__dialog">
+      <span class="modal__eyebrow">Xác nhận</span>
+      <h2 class="modal__title" id="confirmTitle">Bạn chắc chắn?</h2>
+      <p class="modal__desc" id="confirmText">Hành động này không thể hoàn tác.</p>
+
+      <div class="hero__actions">
+        <button class="btn btn--primary" type="button" id="confirmYes">Đồng ý xoá</button>
+        <button class="btn btn--ghost" type="button" data-close-modal>Huỷ</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="false"></div>
+
+  <script src="js/script.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+
+</html>

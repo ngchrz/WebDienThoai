@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#05070c">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <meta name="description"
+    content="Aurora Mobile — Khám phá công nghệ di động. Bộ sưu tập iPhone, Samsung Galaxy, Xiaomi, OPPO và vivo chính hãng — camera 200MP, màn hình AMOLED 120Hz và sạc nhanh 100W.">
+  <title>AURORA MOBILE — Khám phá công nghệ di động</title>
+
+  <!-- Chống nhấp nháy theme: đọc lựa chọn đã lưu TRƯỚC khi trang vẽ -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('aurora-theme');
+        if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) { }
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body data-page="home">
+
+  <!-- ====================================================================
+       HEADER
+       ==================================================================== -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="Aurora Mobile — Trang chủ">
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span class="brand__name">Aurora</span>
+      </a>
+
+      <nav class="nav" id="primaryNav" aria-label="Điều hướng chính">
+        <ul class="nav-list">
+          <li><a href="index.html" data-nav="home">Home</a></li>
+          <li><a href="products.html" data-nav="products">Smartphones</a></li>
+          <li><a href="index.html#technology" data-nav="technology">Technology</a></li>
+          <li><a href="members.html" data-nav="members">Members</a></li>
+          <li><a href="contact.html" data-nav="contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn theme-toggle" id="themeToggle" type="button" aria-label="Đổi chế độ sáng tối">
+          <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round">
+            <circle cx="12" cy="12" r="4.2" />
+            <path
+              d="M12 2.6v2.1M12 19.3v2.1M4.7 4.7l1.5 1.5M17.8 17.8l1.5 1.5M2.6 12h2.1M19.3 12h2.1M4.7 19.3l1.5-1.5M17.8 6.2l1.5-1.5" />
+          </svg>
+          <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 14.5A8.5 8.5 0 019.5 4a8.5 8.5 0 1010.5 10.5z" />
+          </svg>
+        </button>
+
+        <button class="icon-btn" id="searchToggle" type="button" aria-label="Tìm kiếm sản phẩm">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7" />
+            <path d="M20 20l-3.6-3.6" />
+          </svg>
+        </button>
+
+        <a class="icon-btn icon-btn--admin" href="admin.html" aria-label="Trang quản trị" title="Trang quản trị">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M4 7h10M18 7h2M4 17h4M12 17h8" />
+            <circle cx="16" cy="7" r="2.2" />
+            <circle cx="10" cy="17" r="2.2" />
+          </svg>
+        </a>
+
+        <a class="btn btn--primary btn--sm btn--order" href="order.html">Order Now</a>
+
+        <button class="hamburger" id="navToggle" type="button" aria-label="Mở menu" aria-expanded="false"
+          aria-controls="primaryNav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Thanh tìm kiếm trượt xuống -->
+    <div class="header-search" id="headerSearch">
+      <div class="container">
+        <div class="search-form" role="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7" />
+            <path d="M20 20l-3.6-3.6" />
+          </svg>
+          <input type="search" id="globalSearch" placeholder="Tìm điện thoại…" autocomplete="off"
+            aria-label="Tìm kiếm sản phẩm">
+          <button class="icon-btn" id="searchClose" type="button" aria-label="Đóng tìm kiếm">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ==================================================================
+         1. HERO
+         ================================================================== -->
+    <section class="hero" id="home">
+      <div class="hero__bg" aria-hidden="true">
+        <span class="hero__grid-lines"></span>
+        <span class="hero__blob hero__blob--1"></span>
+        <span class="hero__blob hero__blob--2"></span>
+        <span class="hero__blob hero__blob--3"></span>
+        <span class="hero__ring hero__ring--1"></span>
+        <span class="hero__ring hero__ring--2"></span>
+      </div>
+
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <span class="eyebrow anim-rise d-1">Aurora Mobile · Bộ sưu tập 2026</span>
+
+          <h1 class="hero__title anim-rise d-2">
+            <span>The Future</span>
+            <span class="gradient-text">In Your Hand</span>
+          </h1>
+
+          <p class="hero__desc anim-rise d-3">
+            Công nghệ mới, thiết kế mới và trải nghiệm hoàn toàn mới.
+          </p>
+
+          <div class="hero__actions anim-rise d-4">
+            <a class="btn btn--primary" href="products.html">
+              Explore Phones
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </a>
+            <a class="btn btn--ghost" href="#technology">Discover Aurora</a>
+          </div>
+
+          <div class="hero__meta anim-rise d-5">
+            <div>
+              <b><span data-count="200" data-duration="1700">0</span>MP</b>
+              <small>Main camera</small>
+            </div>
+            <div>
+              <b><span data-count="120" data-duration="1700">0</span>Hz</b>
+              <small>AMOLED</small>
+            </div>
+            <div>
+              <b><span data-count="5000" data-duration="1900">0</span>mAh</b>
+              <small>Battery</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__phone anim-pop d-3">
+          <!-- ẢNH: images/hero-phone.png — thay bằng ảnh render điện thoại của nhóm -->
+          <img src="images/hero-phone.png" alt="iPhone 18 Pro Max" width="900"
+            height="1250">
+        </div>
+      </div>
+
+      <a class="hero__scroll" href="#design">Scroll<i aria-hidden="true"></i></a>
+    </section>
+
+    <!-- ==================================================================
+         2. DESIGNED FOR TOMORROW
+         ================================================================== -->
+    <section class="section" id="design">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Thiết kế</span>
+            <h2 class="h-section" data-reveal="up">Designed for<br>Tomorrow</h2>
+          </div>
+          <p class="lead" data-reveal="up" data-delay="1">
+            Mỗi chi tiết đều được tính toán để chiếc điện thoại vừa mỏng hơn, nhẹ hơn, vừa bền bỉ hơn —
+            khung titanium hàng không và mặt kính cường lực thế hệ mới.
+          </p>
+        </div>
+
+        <div class="split">
+          <div class="split__media" data-reveal="left">
+            <div class="stage">
+              <!-- ẢNH: images/iphone-18-pro-max-den.png -->
+              <img src="images/iphone-18-pro-max-den.png" alt="iPhone 18 Pro Max khung titanium" width="900"
+                height="900" loading="lazy">
+            </div>
+          </div>
+
+          <div class="split__body" data-reveal="right" data-delay="1">
+            <div class="spec-rows">
+              <div class="spec-row">
+                <b><span data-count="8.2" data-decimals="1" data-duration="1500">0</span> mm</b>
+                <span>Ultra Thin Design</span>
+              </div>
+              <div class="spec-row">
+                <b><span data-count="218" data-duration="1500">0</span> g</b>
+                <span>Lightweight Body</span>
+              </div>
+              <div class="spec-row">
+                <b>Titanium</b>
+                <span>Premium Material</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         3. MEET THE AURORA FAMILY
+         ================================================================== -->
+    <section class="section section--soft" id="family">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Sản phẩm nổi bật</span>
+            <h2 class="h-section" data-reveal="up">Meet the<br>Lineup</h2>
+          </div>
+          <a class="btn btn--ghost" href="products.html" data-reveal="up" data-delay="1">
+            Xem tất cả
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- JS render 4 sản phẩm nổi bật từ mảng PRODUCTS trong js/script.js -->
+        <div class="family" id="familyGrid"></div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         4. CAMERA — SEE THE DIFFERENCE (nền tối toàn màn hình)
+         ================================================================== -->
+    <section class="section camera dark-scope" id="technology">
+      <span class="glow glow--cyan glow--lg glow--top-left" aria-hidden="true"></span>
+      <span class="glow glow--violet glow--md glow--bottom-right" aria-hidden="true"></span>
+
+      <div class="container">
+        <div class="camera__layout">
+          <div class="camera__copy" data-reveal="left">
+            <span class="eyebrow">Camera System</span>
+            <h2 class="h-section">See the<br>Difference</h2>
+            <p class="lead mt-xs">
+              Ba cảm biến, ba tiêu cự — hệ thống camera được các hãng tinh chỉnh cho nhiếp ảnh chuyên nghiệp.
+            </p>
+
+            <div class="camera__stats">
+              <div class="camera__stat">
+                <b><span data-count="200" data-duration="1600">0</span>MP</b>
+                <span>Main Camera</span>
+              </div>
+              <div class="camera__stat">
+                <b><span data-count="50" data-duration="1600">0</span>MP</b>
+                <span>Ultra Wide</span>
+              </div>
+              <div class="camera__stat">
+                <b><span data-count="50" data-duration="1600">0</span>MP</b>
+                <span>Telephoto</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- JS tự dựng 4 ảnh từ mảng GALLERY trong js/script.js -->
+          <div class="gallery" id="gallery" data-reveal="right" data-delay="1"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         5. DISPLAY — PURE. BRIGHT. IMMERSIVE.
+         ================================================================== -->
+    <section class="section" id="display">
+      <div class="container">
+        <div class="display__layout">
+          <div class="display__copy" data-reveal="left">
+            <span class="eyebrow">Display</span>
+            <h2 class="h-section">Pure. Bright.<br>Immersive.</h2>
+            <p class="lead mt-xs">
+              Tấm nền AMOLED 1.5K cho độ sáng 3000 nits, viền màn hình mỏng nhất từng có trên một chiếc Aurora.
+            </p>
+
+            <div class="display__stats">
+              <div class="display__stat">
+                <b><span data-count="6.9" data-decimals="1" data-duration="1500">0</span>"</b>
+                <span>AMOLED Display</span>
+              </div>
+              <div class="display__stat">
+                <b><span data-count="120" data-duration="1500">0</span>Hz</b>
+                <span>Refresh Rate</span>
+              </div>
+              <div class="display__stat">
+                <b><span data-count="2" data-duration="1500">0</span>K</b>
+                <span>Resolution</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="display__screen stage" data-reveal="zoom" data-delay="1">
+            <!-- ẢNH: images/hero-phone.png (màn hình phát sáng) -->
+            <img src="images/hero-phone.png" alt="Màn hình AMOLED 144Hz của Aurora" width="900" height="1350"
+              loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         6. PERFORMANCE — POWER WITHOUT COMPROMISE
+         ================================================================== -->
+    <section class="section section--soft" id="performance">
+      <div class="container">
+        <div class="section-head section-head--center">
+          <div>
+            <span class="eyebrow">Hiệu năng</span>
+            <h2 class="h-section" data-reveal="up">Power Without<br>Compromise</h2>
+          </div>
+        </div>
+
+        <div class="perf__layout">
+          <div class="chip-card" data-reveal="left">
+            <div class="chip-card__die">
+              <span class="chip-card__label">Snapdragon<br>8 Elite</span>
+            </div>
+            <p class="chip-card__note">8 nhân · 4.74GHz · Galaxy AI</p>
+          </div>
+
+          <div class="perf__bars" data-reveal="right" data-delay="1">
+            <ul class="chip-list">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <rect x="7" y="7" width="10" height="10" rx="2" />
+                  <path d="M10 3v2M14 3v2M10 19v2M14 19v2M3 10h2M3 14h2M19 10h2M19 14h2" />
+                </svg>
+                8-core CPU
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <path d="M4 8h16v9a2 2 0 01-2 2H6a2 2 0 01-2-2V8zM8 5v3M16 5v3" />
+                </svg>
+                16GB RAM
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <path d="M3 7h13l5 5-5 5H3z" />
+                  <circle cx="8" cy="12" r="1.6" />
+                </svg>
+                1TB Storage
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <path d="M5 20V9M12 20V4M19 20v-7" />
+                </svg>
+                5G · Wi-Fi 7
+              </li>
+            </ul>
+
+            <div class="bars mt-sm">
+              <div class="bar" data-bar="95">
+                <div class="bar__head">
+                  <span class="bar__name">CPU</span>
+                  <span class="bar__val">0%</span>
+                </div>
+                <div class="bar__track"><span class="bar__fill"></span></div>
+              </div>
+
+              <div class="bar" data-bar="90">
+                <div class="bar__head">
+                  <span class="bar__name">GPU</span>
+                  <span class="bar__val">0%</span>
+                </div>
+                <div class="bar__track"><span class="bar__fill"></span></div>
+              </div>
+
+              <div class="bar" data-bar="97">
+                <div class="bar__head">
+                  <span class="bar__name">AI</span>
+                  <span class="bar__val">0%</span>
+                </div>
+                <div class="bar__track"><span class="bar__fill"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         7. BATTERY — POWER THAT LASTS
+         ================================================================== -->
+    <section class="section" id="power">
+      <div class="container">
+        <div class="battery__layout">
+          <div class="battery__copy" data-reveal="left">
+            <span class="eyebrow">Pin &amp; Sạc</span>
+            <h2 class="h-section">Power That<br>Lasts</h2>
+            <p class="lead mt-xs">
+              Viên pin 6000 mAh kết hợp sạc nhanh 100W — dùng thoải mái cả ngày dài.
+            </p>
+
+            <div class="display__stats grid-2">
+              <div class="display__stat">
+                <b><span data-count="6000" data-duration="1700">0</span>mAh</b>
+                <span>Battery</span>
+              </div>
+              <div class="display__stat">
+                <b><span data-count="100" data-duration="1500">0</span>W</b>
+                <span>Fast Charging</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="battery__visual" data-reveal="right" data-delay="1">
+            <div class="battery" id="battery">
+              <div class="battery__body">
+                <div class="battery__fill" id="batteryFill"></div>
+                <span class="battery__pct" id="batteryPct">0%</span>
+              </div>
+              <span class="battery__cap" aria-hidden="true"></span>
+            </div>
+
+            <ul class="battery__steps" aria-hidden="true">
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         8. WHY AURORA?
+         ================================================================== -->
+    <section class="section section--soft" id="why">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Vì sao chọn Aurora</span>
+            <h2 class="h-section" data-reveal="up">Why Aurora?</h2>
+          </div>
+          <p class="lead" data-reveal="up" data-delay="1">
+            Bốn lý do khiến Aurora trở thành lựa chọn cân bằng nhất trong phân khúc.
+          </p>
+        </div>
+
+        <div class="why-grid">
+          <article class="why-card" data-reveal="up">
+            <span class="why-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M13 2L4.5 13.5H11L10 22l9-11.5h-6.5L13 2z" />
+              </svg>
+            </span>
+            <h3>Performance</h3>
+            <p>Hiệu năng mạnh mẽ với chip Snapdragon 8 Elite Gen 5, xử lý mọi tác vụ nặng mà không giật lag.</p>
+          </article>
+
+          <article class="why-card" data-reveal="up" data-delay="1">
+            <span class="why-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path
+                  d="M3 8.5A2.5 2.5 0 015.5 6h13A2.5 2.5 0 0121 8.5v7A2.5 2.5 0 0118.5 18h-13A2.5 2.5 0 013 15.5v-7z" />
+                <circle cx="12" cy="12" r="3.4" />
+                <path d="M18 10.5v.01" />
+              </svg>
+            </span>
+            <h3>Camera</h3>
+            <p>Hệ thống camera chuyên nghiệp 200MP với ba tiêu cự và chế độ chụp đêm thế hệ mới.</p>
+          </article>
+
+          <article class="why-card" data-reveal="up" data-delay="2">
+            <span class="why-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z" />
+                <path d="M12 12l8-4.5M12 12v9M12 12L4 7.5" />
+              </svg>
+            </span>
+            <h3>Design</h3>
+            <p>Thiết kế cao cấp với khung titanium, mặt lưng kính nhám và độ hoàn thiện tỉ mỉ.</p>
+          </article>
+
+          <article class="why-card" data-reveal="up" data-delay="3">
+            <span class="why-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round">
+                <rect x="2.5" y="7" width="16" height="10" rx="2.6" />
+                <path d="M21 10.5v3" />
+                <path d="M6.5 11v2M10 11v2M13.5 11v2" />
+              </svg>
+            </span>
+            <h3>Battery</h3>
+            <p>Thời lượng pin dài với 5200 mAh và sạc nhanh 100W, dùng thoải mái cả ngày dài.</p>
+          </article>
+        </div>
+
+        <div class="cta-band mt-lg" data-reveal="up">
+          <span class="eyebrow">Aurora Launch</span>
+          <h2>Sẵn sàng trải nghiệm?</h2>
+          <p>Đăng ký để nhận thông báo mở bán sớm nhất và ưu đãi dành riêng cho sinh viên.</p>
+          <div class="hero__actions center-x">
+            <a class="btn btn--primary" href="order.html">Order Now</a>
+            <button class="btn btn--ghost btn--on-dark" type="button" data-open-modal="notify">Nhận thông báo</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ====================================================================
+       FOOTER
+       ==================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="index.html">
+            <span class="brand__mark" aria-hidden="true"></span>
+            <span class="brand__name">Aurora</span>
+          </a>
+          <p>Aurora Mobile — dự án website giới thiệu điện thoại được thực hiện bởi nhóm sinh viên với HTML5, CSS3 và
+            JavaScript thuần.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Smartphones</h4>
+          <ul>
+            <li><a href="product-detail.html?id=iphone-18-pro-max">iPhone 18 Pro Max</a></li>
+            <li><a href="product-detail.html?id=galaxy-s26-ultra">Galaxy S26 Ultra</a></li>
+            <li><a href="product-detail.html?id=xiaomi-17-ultra">Xiaomi 17 Ultra</a></li>
+            <li><a href="product-detail.html?id=oppo-find-x9-pro">OPPO Find X9 Pro</a></li>
+            <li><a href="products.html">Xem tất cả →</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Về chúng tôi</h4>
+          <ul>
+            <li><a href="members.html">Thành viên nhóm</a></li>
+            <li><a href="contact.html">Liên hệ &amp; góp ý</a></li>
+            <li><a href="order.html">Đặt hàng</a></li>
+            <li><a href="index.html#technology">Công nghệ</a></li>
+            <li><a href="admin.html">Trang quản trị</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Nhận thông tin ra mắt</h4>
+          <p class="muted">Đăng ký email để nhận thông báo về sản phẩm mới và ưu đãi.</p>
+          <div class="newsletter">
+            <button class="btn btn--primary btn--sm" type="button" data-open-modal="notify">Đăng ký nhận tin</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Aurora Mobile · Dự án học tập, không phải website thương mại.</span>
+        <div class="footer-social">
+          <a href="contact.html" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5h1.65V3.6A22 22 0 0014.3 3.5c-2.4 0-4 1.45-4 4.1v2.3H7.6V13h2.7v8h3.2z" />
+            </svg>
+          </a>
+          <a href="contact.html" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
+              <circle cx="12" cy="12" r="3.8" />
+              <path d="M16.8 7.2v.01" stroke-linecap="round" />
+            </svg>
+          </a>
+          <a href="contact.html" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M21.6 7.9a2.5 2.5 0 00-1.75-1.77C18.25 5.7 12 5.7 12 5.7s-6.25 0-7.85.43A2.5 2.5 0 002.4 7.9 26 26 0 002 12a26 26 0 00.4 4.1 2.5 2.5 0 001.75 1.77c1.6.43 7.85.43 7.85.43s6.25 0 7.85-.43a2.5 2.5 0 001.75-1.77A26 26 0 0022 12a26 26 0 00-.4-4.1zM10 15.1V8.9l5.2 3.1-5.2 3.1z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Nút cuộn lên đầu trang + vòng tiến trình -->
+  <button class="to-top" id="toTop" type="button" aria-label="Về đầu trang">
+    <svg class="to-top__ring" viewBox="0 0 52 52" aria-hidden="true">
+      <circle class="track" cx="26" cy="26" r="26"></circle>
+      <circle class="bar" cx="26" cy="26" r="26"></circle>
+    </svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M12 19V5M6 11l6-6 6 6" />
+    </svg>
+  </button>
+
+  <!-- Toast -->
+  <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="false"></div>
+
+  <!-- ====================================================================
+       LIGHTBOX (xem ảnh gallery)
+       ==================================================================== -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Xem ảnh lớn" aria-hidden="true">
+    <figure class="lightbox__figure">
+      <button class="lightbox__close" type="button" aria-label="Đóng">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+      <img class="lightbox__img" id="lightboxImg" src="images/camera-01.jpg" alt="">
+      <figcaption class="lightbox__cap">
+        <span id="lightboxTitle">Golden Hour</span>
+        <span class="lightbox__count"><span id="lightboxMeta"></span> · <span id="lightboxCount">1 / 4</span></span>
+      </figcaption>
+    </figure>
+  </div>
+
+  <!-- ====================================================================
+       MODAL đăng ký nhận thông báo
+       ==================================================================== -->
+  <div class="modal" id="notifyModal" role="dialog" aria-modal="true" aria-labelledby="notifyTitle" aria-hidden="true">
+    <div class="modal__dialog">
+      <button class="modal__close" type="button" aria-label="Đóng">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+
+      <span class="modal__eyebrow">Aurora Launch</span>
+      <h2 class="modal__title" id="notifyTitle">Nhận thông báo mở bán</h2>
+      <p class="modal__desc">Để lại email, chúng tôi sẽ thông báo cho bạn ngay khi có sản phẩm mới lên kệ.</p>
+
+      <form id="notifyForm" novalidate>
+        <div class="form-grid form-grid--single">
+          <div class="field">
+            <label for="n-email">Email <span class="req">*</span></label>
+            <input class="input" type="email" id="n-email" name="n-email" placeholder="ban@example.com"
+              autocomplete="email">
+            <p class="msg" role="alert"></p>
+          </div>
+        </div>
+
+        <button class="btn btn--primary btn--block mt-md" type="submit">Đăng ký</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>

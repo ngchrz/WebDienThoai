@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#05070c">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <meta name="description"
+    content="Danh sách toàn bộ điện thoại Aurora Mobile. Lọc theo danh mục Flagship, Performance, Camera, Budget; tìm kiếm và sắp xếp theo giá.">
+  <title>Smartphones — AURORA MOBILE</title>
+
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('aurora-theme');
+        if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) { }
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body data-page="products">
+
+  <!-- HEADER -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="Aurora Mobile — Trang chủ">
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span class="brand__name">Aurora</span>
+      </a>
+
+      <nav class="nav" id="primaryNav" aria-label="Điều hướng chính">
+        <ul class="nav-list">
+          <li><a href="index.html" data-nav="home">Home</a></li>
+          <li><a href="products.html" data-nav="products">Smartphones</a></li>
+          <li><a href="index.html#technology" data-nav="technology">Technology</a></li>
+          <li><a href="members.html" data-nav="members">Members</a></li>
+          <li><a href="contact.html" data-nav="contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn theme-toggle" id="themeToggle" type="button" aria-label="Đổi chế độ sáng tối">
+          <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round">
+            <circle cx="12" cy="12" r="4.2" />
+            <path
+              d="M12 2.6v2.1M12 19.3v2.1M4.7 4.7l1.5 1.5M17.8 17.8l1.5 1.5M2.6 12h2.1M19.3 12h2.1M4.7 19.3l1.5-1.5M17.8 6.2l1.5-1.5" />
+          </svg>
+          <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 14.5A8.5 8.5 0 019.5 4a8.5 8.5 0 1010.5 10.5z" />
+          </svg>
+        </button>
+
+        <button class="icon-btn" id="searchToggle" type="button" aria-label="Tìm kiếm sản phẩm">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7" />
+            <path d="M20 20l-3.6-3.6" />
+          </svg>
+        </button>
+
+        <a class="icon-btn icon-btn--admin" href="admin.html" aria-label="Trang quản trị" title="Trang quản trị">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2.2"/><circle cx="10" cy="17" r="2.2"/></svg>
+        </a>
+
+        <a class="btn btn--primary btn--sm btn--order" href="order.html">Order Now</a>
+
+        <button class="hamburger" id="navToggle" type="button" aria-label="Mở menu" aria-expanded="false"
+          aria-controls="primaryNav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="header-search" id="headerSearch">
+      <div class="container">
+        <div class="search-form" role="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7" />
+            <path d="M20 20l-3.6-3.6" />
+          </svg>
+          <input type="search" id="globalSearch" placeholder="Tìm điện thoại Aurora…" autocomplete="off"
+            aria-label="Tìm kiếm sản phẩm">
+          <button class="icon-btn" id="searchClose" type="button" aria-label="Đóng tìm kiếm">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+      <span class="glow glow--cyan glow--md glow--top-left" aria-hidden="true"></span>
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Home</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">Smartphones</span>
+        </nav>
+
+        <span class="eyebrow">Bộ sưu tập 2026</span>
+        <h1 class="page-hero__title">Meet the <span class="gradient-text">Lineup</span></h1>
+        <p class="lead mt-xs">
+          Tám mẫu điện thoại cho tám nhu cầu khác nhau. Lọc theo danh mục, tìm kiếm theo tên
+          hoặc sắp xếp theo mức giá — tất cả xử lý bằng JavaScript.
+        </p>
+      </div>
+    </section>
+
+    <!-- DANH SÁCH SẢN PHẨM -->
+    <section class="section section--tight" id="products">
+      <div class="container">
+
+        <!-- Toolbar: Filter + Search + Sort -->
+        <div class="toolbar">
+          <div class="chips" id="filterChips" role="group" aria-label="Lọc theo danh mục"></div>
+
+          <div class="toolbar__right">
+            <label class="field-inline">
+              <span class="sr-only">Tìm kiếm sản phẩm</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <circle cx="11" cy="11" r="7" />
+                <path d="M20 20l-3.6-3.6" />
+              </svg>
+              <input type="search" id="productSearch" placeholder="Tìm: iPhone, Galaxy…" autocomplete="off">
+            </label>
+
+            <div class="select-wrap">
+              <label class="sr-only" for="productSort">Sắp xếp sản phẩm</label>
+              <select id="productSort">
+                <option value="featured">Featured</option>
+                <option value="price-asc">Price Low → High</option>
+                <option value="price-desc">Price High → Low</option>
+                <option value="name-asc">Name A → Z</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <p class="result-count" id="resultCount"></p>
+
+        <!-- JS render danh sách vào đây -->
+        <div class="p-grid" id="productGrid"></div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section section--tight">
+      <div class="container">
+        <div class="cta-band" data-reveal="up">
+          <span class="eyebrow">Chưa chắc chắn?</span>
+          <h2>Cần tư vấn thêm?</h2>
+          <p>Gửi câu hỏi cho nhóm Aurora, chúng tôi sẽ giúp bạn chọn chiếc điện thoại phù hợp nhất.</p>
+          <div class="hero__actions center-x">
+            <a class="btn btn--primary" href="contact.html">Liên hệ ngay</a>
+            <a class="btn btn--ghost btn--on-dark" href="order.html">Đặt hàng</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="index.html">
+            <span class="brand__mark" aria-hidden="true"></span>
+            <span class="brand__name">Aurora</span>
+          </a>
+          <p>Aurora Mobile — dự án website giới thiệu điện thoại được thực hiện bởi nhóm sinh viên với HTML5, CSS3 và
+            JavaScript thuần.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Smartphones</h4>
+          <ul>
+            <li><a href="product-detail.html?id=iphone-18-pro-max">iPhone 18 Pro Max</a></li>
+            <li><a href="product-detail.html?id=galaxy-s26-ultra">Galaxy S26 Ultra</a></li>
+            <li><a href="product-detail.html?id=xiaomi-17-ultra">Xiaomi 17 Ultra</a></li>
+            <li><a href="product-detail.html?id=oppo-find-x9-pro">OPPO Find X9 Pro</a></li>
+            <li><a href="products.html">Xem tất cả →</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Về chúng tôi</h4>
+          <ul>
+            <li><a href="members.html">Thành viên nhóm</a></li>
+            <li><a href="contact.html">Liên hệ &amp; góp ý</a></li>
+            <li><a href="order.html">Đặt hàng</a></li>
+            <li><a href="index.html#technology">Công nghệ</a></li>
+            <li>
+              <a class="footer-admin-link" href="admin.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2.2"/><circle cx="10" cy="17" r="2.2"/></svg>
+                Trang quản trị
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Nhận thông tin ra mắt</h4>
+          <p class="muted">Đăng ký email để nhận thông báo về sản phẩm mới và ưu đãi.</p>
+          <div class="newsletter">
+            <button class="btn btn--primary btn--sm" type="button" data-open-modal="notify">Đăng ký nhận tin</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Aurora Mobile · Dự án học tập, không phải website thương mại.</span>
+        <div class="footer-social">
+          <a href="contact.html" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5h1.65V3.6A22 22 0 0014.3 3.5c-2.4 0-4 1.45-4 4.1v2.3H7.6V13h2.7v8h3.2z" />
+            </svg>
+          </a>
+          <a href="contact.html" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
+              <circle cx="12" cy="12" r="3.8" />
+              <path d="M16.8 7.2v.01" stroke-linecap="round" />
+            </svg>
+          </a>
+          <a href="contact.html" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M21.6 7.9a2.5 2.5 0 00-1.75-1.77C18.25 5.7 12 5.7 12 5.7s-6.25 0-7.85.43A2.5 2.5 0 002.4 7.9 26 26 0 002 12a26 26 0 00.4 4.1 2.5 2.5 0 001.75 1.77c1.6.43 7.85.43 7.85.43s6.25 0 7.85-.43a2.5 2.5 0 001.75-1.77A26 26 0 0022 12a26 26 0 00-.4-4.1zM10 15.1V8.9l5.2 3.1-5.2 3.1z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="to-top" id="toTop" type="button" aria-label="Về đầu trang">
+    <svg class="to-top__ring" viewBox="0 0 52 52" aria-hidden="true">
+      <circle class="track" cx="26" cy="26" r="26"></circle>
+      <circle class="bar" cx="26" cy="26" r="26"></circle>
+    </svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M12 19V5M6 11l6-6 6 6" />
+    </svg>
+  </button>
+
+  <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="false"></div>
+
+  <!-- MODAL nhận thông báo -->
+  <div class="modal" id="notifyModal" role="dialog" aria-modal="true" aria-labelledby="notifyTitle" aria-hidden="true">
+    <div class="modal__dialog">
+      <button class="modal__close" type="button" aria-label="Đóng">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+
+      <span class="modal__eyebrow">Aurora Launch</span>
+      <h2 class="modal__title" id="notifyTitle">Nhận thông báo mở bán</h2>
+      <p class="modal__desc">Để lại email, chúng tôi sẽ thông báo cho bạn ngay khi sản phẩm mới chính thức mở bán.</p>
+
+      <form id="notifyForm" novalidate>
+        <div class="form-grid form-grid--single">
+          <div class="field">
+            <label for="n-email">Email <span class="req">*</span></label>
+            <input class="input" type="email" id="n-email" name="n-email" placeholder="ban@example.com"
+              autocomplete="email">
+            <p class="msg" role="alert"></p>
+          </div>
+        </div>
+
+        <button class="btn btn--primary btn--block mt-md" type="submit">Đăng ký</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>
