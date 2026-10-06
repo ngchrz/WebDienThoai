@@ -368,36 +368,20 @@ const GALLERY = [
 */
 const DEFAULT_MEMBERS = [
   {
-    code: '22520001',
-    name: 'Nguyễn Văn A',
+    code: '25002665',
+    name: 'Mông Đại Lâm',
     role: 'Trưởng nhóm · Thiết kế giao diện',
     hobbies: ['Công nghệ', 'Nhiếp ảnh', 'Âm nhạc'],
     photo: 'images/member-01.jpg',
     bio: 'Phụ trách định hướng thiết kế và dựng toàn bộ giao diện Aurora Mobile. Mê ảnh film và luôn thử nghiệm những layout mới.'
   },
   {
-    code: '22520002',
-    name: 'Trần Thị B',
+    code: '25002453',
+    name: 'Lê Đào Trường Giang',
     role: 'Lập trình JavaScript',
     hobbies: ['Lập trình', 'Đọc sách', 'Du lịch'],
     photo: 'images/member-02.jpg',
     bio: 'Viết logic cho bộ lọc, tìm kiếm, giỏ hàng và toàn bộ phần kiểm tra dữ liệu form. Thích code sạch và UI mượt.'
-  },
-  {
-    code: '22520003',
-    name: 'Lê Minh C',
-    role: 'Nội dung & Hình ảnh',
-    hobbies: ['Viết lách', 'Thiết kế', 'Thể thao'],
-    photo: 'images/member-03.jpg',
-    bio: 'Phụ trách nội dung sản phẩm, biên tập thông số kỹ thuật và xử lý toàn bộ hình ảnh cho website.'
-  },
-  {
-    code: '22520004',
-    name: 'Phạm Thu D',
-    role: 'Kiểm thử & Thuyết trình',
-    hobbies: ['Kiểm thử', 'Thuyết trình', 'Nấu ăn'],
-    photo: 'images/member-04.jpg',
-    bio: 'Kiểm tra responsive trên nhiều kích thước màn hình, rà lỗi console và chuẩn bị nội dung thuyết trình cho nhóm.'
   }
 ];
 
@@ -1051,8 +1035,8 @@ function initProductsPage() {
         'Hiển thị <b>' + list.length + '</b> / ' + PRODUCTS.length + ' sản phẩm' +
         (state.category !== 'all'
           ? ' · danh mục <b>' +
-            (CATEGORIES.filter(function (c) { return c.id === state.category; })[0] || {}).label +
-            '</b>'
+          (CATEGORIES.filter(function (c) { return c.id === state.category; })[0] || {}).label +
+          '</b>'
           : '');
     }
 
@@ -1077,26 +1061,26 @@ function productCard(p, index) {
 
   return (
     '<a class="p-card d-' + ((index % 6) + 1) + '" href="product-detail.html?id=' + p.id + '">' +
-      '<div class="p-card__media">' +
-        badge +
-        '<img src="' + p.img + '" alt="Điện thoại ' + escapeHTML(p.name) + '" loading="lazy">' +
-      '</div>' +
-      '<div class="p-card__body">' +
-        '<span class="p-card__cat">' + escapeHTML(p.tagline) + '</span>' +
-        '<h3 class="p-card__name">' + escapeHTML(p.name) + '</h3>' +
-        '<p class="p-card__desc">' + escapeHTML(p.desc) + '</p>' +
-        '<ul class="p-card__specs">' +
-          '<li>' + escapeHTML(p.specs.display) + '</li>' +
-          '<li>' + escapeHTML(p.specs.camera) + '</li>' +
-          '<li>' + escapeHTML(p.specs.battery) + '</li>' +
-        '</ul>' +
-        '<div class="p-card__foot">' +
-          '<div class="p-card__price">' + formatVND(p.price) + '<small>Từ · 256GB</small></div>' +
-          '<span class="p-card__go" aria-hidden="true">' +
-            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>' +
-          '</span>' +
-        '</div>' +
-      '</div>' +
+    '<div class="p-card__media">' +
+    badge +
+    '<img src="' + p.img + '" alt="Điện thoại ' + escapeHTML(p.name) + '" loading="lazy">' +
+    '</div>' +
+    '<div class="p-card__body">' +
+    '<span class="p-card__cat">' + escapeHTML(p.tagline) + '</span>' +
+    '<h3 class="p-card__name">' + escapeHTML(p.name) + '</h3>' +
+    '<p class="p-card__desc">' + escapeHTML(p.desc) + '</p>' +
+    '<ul class="p-card__specs">' +
+    '<li>' + escapeHTML(p.specs.display) + '</li>' +
+    '<li>' + escapeHTML(p.specs.camera) + '</li>' +
+    '<li>' + escapeHTML(p.specs.battery) + '</li>' +
+    '</ul>' +
+    '<div class="p-card__foot">' +
+    '<div class="p-card__price">' + formatVND(p.price) + '<small>Từ · 256GB</small></div>' +
+    '<span class="p-card__go" aria-hidden="true">' +
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>' +
+    '</span>' +
+    '</div>' +
+    '</div>' +
     '</a>'
   );
 }
@@ -2021,19 +2005,19 @@ function initMembers() {
 
     return (
       '<article class="member" data-reveal="up" data-delay="' + ((index % 4) + 1) + '">' +
-        '<div class="member__photo">' +
-          '<img src="' + m.photo + '" alt="Ảnh thành viên ' + escapeHTML(m.name) + '" loading="lazy" width="800" height="800">' +
-          '<div class="member__overlay"><p>' + escapeHTML(m.bio) + '</p></div>' +
-        '</div>' +
-        '<div class="member__body">' +
-          '<span class="member__code">Mã SV: ' + escapeHTML(m.code) + '</span>' +
-          '<h3 class="member__name">' + escapeHTML(m.name) + '</h3>' +
-          '<dl>' +
-            '<div class="member__row"><dt>Vai trò</dt><dd>' + escapeHTML(m.role) + '</dd></div>' +
-            '<div class="member__row"><dt>Sở thích</dt><dd><span class="member__tags">' + tags + '</span></dd></div>' +
-          '</dl>' +
-          '<p class="member__hint">' + hintIcon + ' Rê chuột vào ảnh để xem giới thiệu</p>' +
-        '</div>' +
+      '<div class="member__photo">' +
+      '<img src="' + m.photo + '" alt="Ảnh thành viên ' + escapeHTML(m.name) + '" loading="lazy" width="800" height="800">' +
+      '<div class="member__overlay"><p>' + escapeHTML(m.bio) + '</p></div>' +
+      '</div>' +
+      '<div class="member__body">' +
+      '<span class="member__code">Mã SV: ' + escapeHTML(m.code) + '</span>' +
+      '<h3 class="member__name">' + escapeHTML(m.name) + '</h3>' +
+      '<dl>' +
+      '<div class="member__row"><dt>Vai trò</dt><dd>' + escapeHTML(m.role) + '</dd></div>' +
+      '<div class="member__row"><dt>Sở thích</dt><dd><span class="member__tags">' + tags + '</span></dd></div>' +
+      '</dl>' +
+      '<p class="member__hint">' + hintIcon + ' Rê chuột vào ảnh để xem giới thiệu</p>' +
+      '</div>' +
       '</article>'
     );
   }).join('');
